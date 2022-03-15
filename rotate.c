@@ -1,47 +1,64 @@
 #include "push_swap.h"
 
-// t_stack ft_ra(t_stack *stack_a)
-// {
-//     int i;
-//     int tmp;
-//     int first;
-
-//     first = stack->value;
-//     i = 0;
-//     while( i < (stack_a->stacksize / 2))
-//     {
-//             i++;
-//             tmp = stack_a->next->value;
-//             stack_a->next->value = stack_a->value;
-//             stack_a->next->next->value = tmp;
-//             stack_a = stack_a->next;
-//     }
-//     return (*stack_a);
-// }
-
-t_stack ft_ra(t_stack *stack_a)
+void ft_ra(t_stack *stack)
 {
     t_stack *tmp;
-    t_stack *first;
-    
-    int i;
 
-    tmp = stack_a;
-    while ( i != stack_a->stacksize)
-    {
-        stack_a = stack_a->next;
-        i++;
-    }
-    first->value = stack_a->value;
-    free (stack_a);
-    i = 0;
-     while ( i < stack_a->stacksize)
-    {
-        i++;
-        printf("|%d \n", stack_a->value);
-        stack_a = stack_a->next;
-    }
-    ft_stackadd_front(&tmp, first);
-    ft_stacklastcircle(tmp)->next = tmp;
-    return (*tmp);
+    tmp = malloc(sizeof(t_stack));
+    tmp = ft_stacklast(stack);
+    tmp->next = stack;
+    while(stack->next != tmp)
+        stack = stack->next;
+    stack->next = NULL;
+
+}
+
+// t_stack *ft_ra(t_stack *stack)
+// {
+//     t_stack *tmp;
+
+//     tmp = malloc(sizeof(t_stack));
+//     tmp = ft_stacklast(stack);
+//     tmp->next = stack;
+//     while(stack->next != tmp)
+//         stack = stack->next;
+//     stack->next = NULL;
+//     return(tmp);
+// }
+
+t_stack *ft_rb(t_stack *stack)
+{
+    t_stack *tmp;
+
+    tmp = malloc(sizeof(t_stack));
+    tmp = ft_stacklast(stack);
+    tmp->next = stack;
+    while(stack->next != tmp)
+        stack = stack->next;
+    stack->next = NULL;
+    return(tmp);
+}
+
+t_stack *ft_rra(t_stack *stack)
+{
+    t_stack *tmp;
+
+    tmp = malloc(sizeof(t_stack));
+    tmp = stack->next;
+   
+    ft_stacklast(stack)->next = stack;
+    stack->next = NULL;
+    return (tmp);
+}
+
+t_stack *ft_rrb(t_stack *stack)
+{
+    t_stack *tmp;
+
+    tmp = malloc(sizeof(t_stack));
+    tmp = stack->next;
+   
+    ft_stacklast(stack)->next = stack;
+    stack->next = NULL;
+    return (tmp);
 }
