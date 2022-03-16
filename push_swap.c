@@ -9,6 +9,7 @@ int main(int ac, char **av)
 
     *stack = create_stack(ac, av);
     ft_ra(stack);
+    printf("stackka = %d\n", stack->value);
     while ( stack != NULL)
     {
         printf("|||||%d \n", stack->value);
