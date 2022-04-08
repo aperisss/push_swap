@@ -1,73 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperis <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/02 04:19:53 by aperis            #+#    #+#             */
+/*   Updated: 2022/04/02 04:36:31 by aperis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void ft_ra(t_stack *stack)
+void	ft_ra(t_stack **stack_a)
 {
-    t_stack *tmp;
-    t_stack *tmp2;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-    tmp2 = malloc(sizeof(t_stack));
-    tmp = malloc(sizeof(t_stack));
-    tmp2 = stack;
-     printf(" astack = %d\n", stack->value);
-    tmp = ft_stacklast(stack);
-    while(tmp2->next != tmp)
-        tmp2 = tmp2->next;
-    tmp2->next = NULL;  
-    tmp->next = stack;
-    stack = tmp;
-  
-    printf(" stack = %d\n", stack->value);
-    printf(" stack = %d\n", stack->next->value);
-    printf(" stack = %d\n", stack->next->next->value);
-
+	tmp2 = malloc(sizeof(t_stack));
+	tmp = *stack_a;
+	 tmp2->lis_index = tmp->lis_index;
+	tmp2->value = tmp->value;
+	ft_stacklast(*stack_a)->next = tmp2;
+	tmp2->next = NULL;
+	*stack_a = tmp->next;
+	free(tmp);
+	write(1, "ra\n", 3);
 }
 
-// t_stack *ft_ra(t_stack *stack)
-// {
-//     t_stack *tmp;
-
-//     tmp = malloc(sizeof(t_stack));
-//     tmp = ft_stacklast(stack);
-//     tmp->next = stack;
-//     while(stack->next != tmp)
-//         stack = stack->next;
-//     stack->next = NULL;
-//     return(tmp);
-// }
-
-t_stack *ft_rb(t_stack *stack)
+void	ft_rb(t_stack **stack_a)
 {
-    t_stack *tmp;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-    tmp = malloc(sizeof(t_stack));
-    tmp = ft_stacklast(stack);
-    tmp->next = stack;
-    while(stack->next != tmp)
-        stack = stack->next;
-    stack->next = NULL;
-    return(tmp);
+	tmp2 = malloc(sizeof(t_stack));
+	tmp = *stack_a;
+	tmp2->value = tmp->value;
+	tmp2->lis_index = tmp->lis_index;
+	ft_stacklast(*stack_a)->next = tmp2;
+	tmp2->next = NULL;
+	*stack_a = tmp->next;
+	free(tmp);
+	write(1, "rb\n", 3);
 }
 
-t_stack *ft_rra(t_stack *stack)
+void	ra(t_stack **stack_a)
 {
-    t_stack *tmp;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-    tmp = malloc(sizeof(t_stack));
-    tmp = stack->next;
-   
-    ft_stacklast(stack)->next = stack;
-    stack->next = NULL;
-    return (tmp);
+	tmp2 = malloc(sizeof(t_stack));
+	tmp = *stack_a;
+	 tmp2->lis_index = tmp->lis_index;
+	tmp2->value = tmp->value;
+	ft_stacklast(*stack_a)->next = tmp2;
+	tmp2->next = NULL;
+	*stack_a = tmp->next;
+	free(tmp);
 }
 
-t_stack *ft_rrb(t_stack *stack)
+void	rb(t_stack **stack_a)
 {
-    t_stack *tmp;
+	t_stack	*tmp;
+	t_stack	*tmp2;
 
-    tmp = malloc(sizeof(t_stack));
-    tmp = stack->next;
-   
-    ft_stacklast(stack)->next = stack;
-    stack->next = NULL;
-    return (tmp);
+	tmp2 = malloc(sizeof(t_stack));
+	tmp = *stack_a;
+	tmp2->value = tmp->value;
+	tmp2->lis_index = tmp->lis_index;
+	ft_stacklast(*stack_a)->next = tmp2;
+	tmp2->next = NULL;
+	*stack_a = tmp->next;
+	free(tmp);
+}
+
+void	ft_rr(t_stack **stack_a, t_stack **stack_b)
+{
+	ra(stack_a);
+	rb(stack_b);
+	write(1, "rr\n", 3);
 }
