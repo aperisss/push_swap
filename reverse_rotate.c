@@ -79,7 +79,6 @@ void	rrb(t_stack **stack)
 	ft_stacklast(*stack)->next = *stack;
 	tmp->next = NULL;
 	*stack = tmp2;
-	write(1, "rrb\n", 4);
 	}
 }
 

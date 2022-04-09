@@ -6,9 +6,9 @@ void futur_pos3(t_stack **stack_a, t_stack **stack_b)
     t_stack *tmp_a;
     t_stack *tmp_b;
 
-    max = 0;
     tmp_a = *stack_a;
     tmp_b = *stack_b;
+    max = tmp_b->value;
     while(tmp_b != NULL)
     {
         if (tmp_b->value > max)

@@ -57,19 +57,19 @@ void	create_lis(t_stack **stack_a, t_stack **tmp_lis, t_stack **stack_b)
 	*stack_a = tmp_a;
 }
 
-void    best_push(t_stack **stack_a, t_stack **stack_b)
+void    best_push(t_stack **stack_b, t_stack **stack_a)
 {
-    t_stack *tmp_a;
-    tmp_a = *stack_a;
-    while(tmp_a != NULL)
+    t_stack *tmp_b;
+    tmp_b = *stack_b;
+    while(tmp_b != NULL)
     {
-        initialise_pos(stack_b);
-	    initialise_pos(&tmp_a);
-	    initialise_futur_pos(&tmp_a, stack_b);
-	    initialise_best_push(&tmp_a);
-        push(&tmp_a, stack_b);
+        initialise_pos(stack_a);
+	    initialise_pos(&tmp_b);
+	    initialise_futur_pos(&tmp_b, stack_a);
+	    initialise_best_push(&tmp_b);
+        push(&tmp_b, stack_a);
     }
-    *stack_a = tmp_a;
+    *stack_b = tmp_b;
 }
 
 void index_sort(t_stack **stack_a)
@@ -127,23 +127,23 @@ int	main(int ac, char **av)
 	if (ft_stacksize(stack_a) < 6)
 	{
 		less_than5(&stack_a, &stack_b);
-
-	while(stack_a)
-	{
-		printf("less = %d\n", stack_a->value);
-		stack_a = stack_a->next;
-	}
 		return (0);
 	}
 	create_lis(&stack_a, &tmplis, &stack_b);
+	printf("----\n");
 	best_push(&stack_b, &stack_a);
 	index_sort(&stack_a);
-	
-	while(stack_a->next)
+	while(stack_a)
 	{
-		tmp_a = stack_a->next;
-		free(stack_a);
-		stack_a = tmp_a;
+		printf("value = %d\n", stack_a->value);
+		stack_a = stack_a->next;
 	}
+	
+	// while(stack_a->next)
+	// {
+	// 	tmp_a = stack_a->next;
+	// 	free(stack_a);
+	// 	stack_a = tmp_a;
+	// }
 	return (0);
 }
