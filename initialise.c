@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialise.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aperis <aperis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/09 17:11:55 by aperis            #+#    #+#             */
+/*   Updated: 2022/04/09 22:10:43 by aperis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+void	initialise_indexto1(t_stack **stack_a)
+{
+	t_stack	*tmp_a;
+
+	tmp_a = *stack_a;
+	while (tmp_a != NULL)
+	{
+		tmp_a->lis_index = 1;
+		tmp_a = tmp_a->next;
+	}
+}
 
 void	initialise_index(t_stack **stack_a)
 {
@@ -9,12 +33,7 @@ void	initialise_index(t_stack **stack_a)
 	tmp_a = *stack_a;
 	i = *stack_a;
 	j = tmp_a->next;
-	while (tmp_a != NULL)
-	{
-		tmp_a->lis_index = 1;
-		tmp_a = tmp_a->next;
-	}
-	tmp_a = *stack_a;
+	initialise_indexto1(stack_a);
 	while (j != NULL)
 	{
 		if ((j->value > i->value) && (i->lis_index + 1 > j->lis_index))
@@ -56,12 +75,10 @@ void	initialise_pos(t_stack **stack_a)
 		}
 		tmp_a = tmp_a->next;
 	}
-	tmp_a = *stack_a;
-	if (ft_stacksize(*stack_a) == 1)
-		tmp_a->pos = 0;
+	initialise_pos_size1(stack_a);
 }
 
-void initialise_tmplis(t_stack **stack_a, t_stack **tmp_lis, int max_index)
+void	initialise_tmplis(t_stack **stack_a, t_stack **tmp_lis, int max_index)
 {
 	t_stack	*tmp;
 	t_stack	*tmp2;
@@ -76,29 +93,28 @@ void initialise_tmplis(t_stack **stack_a, t_stack **tmp_lis, int max_index)
 			tmplis(tmp_lis, &tmp);
 		else if (tmp->value > tmp2->value)
 		{
-           
 			while ((tmp->value > tmp2->value) || (tmp->lis_index != max_index))
 				tmp = tmp->next;
 			tmplis(tmp_lis, &tmp);
-        }
+		}
 	}
 	else
 		tmplis(tmp_lis, &tmp);
 }
 
-void    initialise_best_push(t_stack **stack_a)
+void	initialise_best_push(t_stack **stack_a)
 {
-    t_stack *tmp_a;
+	t_stack	*tmp_a;
 
-    tmp_a = *stack_a;
-    while (tmp_a != NULL)
-    {
-        if (tmp_a->pos > 0 && tmp_a->futur_pos > 0)
-            tmp_a->best_push = return_max(tmp_a->pos, tmp_a->futur_pos);
-        else if (tmp_a->pos < 0 && tmp_a->futur_pos < 0)
-            tmp_a->best_push = return_max(tmp_a->pos, tmp_a->futur_pos);
-        else
-            tmp_a->best_push = abs(tmp_a->pos) + abs(tmp_a->futur_pos);
-        tmp_a = tmp_a->next;
-    }
+	tmp_a = *stack_a;
+	while (tmp_a != NULL)
+	{
+		if (tmp_a->pos > 0 && tmp_a->futur_pos > 0)
+			tmp_a->best_push = return_max(tmp_a->pos, tmp_a->futur_pos);
+		else if (tmp_a->pos < 0 && tmp_a->futur_pos < 0)
+			tmp_a->best_push = return_max(tmp_a->pos, tmp_a->futur_pos);
+		else
+			tmp_a->best_push = abs(tmp_a->pos) + abs(tmp_a->futur_pos);
+		tmp_a = tmp_a->next;
+	}
 }

@@ -3,20 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperis <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aperis <aperis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 04:18:22 by aperis            #+#    #+#             */
-/*   Updated: 2022/04/02 04:23:46 by aperis           ###   ########.fr       */
+/*   Updated: 2022/04/12 15:02:47 by aperis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	exit_error(void)
+{
+	write(1, "Error\n", 6);
+	exit(0);
+}
+
+void	free_stack(t_stack **stack)
+{
+	t_stack	*tmp;
+	t_stack	*f;
+
+	tmp = *stack;
+	while (tmp->next)
+	{
+		f = tmp->next;
+		free(tmp);
+		tmp = f;
+	}
+	free(tmp);
+}
+
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	nb;
-	int	sign;
+	int			i;
+	long int	nb;
+	int			sign;
 
 	i = 0;
 	nb = 0;
@@ -32,6 +53,10 @@ int	ft_atoi(const char *nptr)
 		nb = nb * 10 + nptr[i] - 48;
 		i++;
 	}
+	if (nb > 2147483647 && sign > 0)
+		exit_error();
+	if (nb > 2147483648 && sign < 0)
+		exit_error();
 	return (nb * sign);
 }
 
@@ -44,14 +69,14 @@ int	ft_check_arg2(int ac, char **av)
 	i = 1;
 	j = 2;
 	tmp = ac;
-	if ( ac < 2)
-		return (0);
+	if (ac < 2)
+		exit(0);
 	while (tmp > 1)
 	{
 		while (j < ac)
 		{
 			if (ft_atoi(av[i]) == ft_atoi(av[j]))
-				return (0);
+				exit_error();
 			j++;
 		}
 		i++;
@@ -68,19 +93,18 @@ int	ft_check_arg(int ac, char **av)
 
 	i = 1;
 	j = 0;
-	if (ft_check_arg2(ac, av) == 0)
-		return (0);
+	ft_check_arg2(ac, av);
 	while (ac > 1)
 	{
 		while (av[i][j])
 		{
 			if ((av[i][j] < '0' || av[i][j] > '9')
 				&& (av[i][j] != '+' && av[i][j] != '-'))
-				return (0);
+				exit_error();
 			if ((av[i][j] == '-' || av[i][j] == '+') && j != 0)
-				return (0);
+				exit_error();
 			if ((av[i][0] == '+' || av[i][0] == '-') && !av[i][1])
-				return (0);
+				exit_error();
 			j++;
 		}
 		i++;

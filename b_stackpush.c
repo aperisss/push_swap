@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stackpush.c                                        :+:      :+:    :+:   */
+/*   b_stackpush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperis <aperis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aperis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/02 04:20:01 by aperis            #+#    #+#             */
-/*   Updated: 2022/04/11 16:21:39 by aperis           ###   ########.fr       */
+/*   Created: 2022/04/12 15:23:33 by aperis            #+#    #+#             */
+/*   Updated: 2022/04/12 15:23:36 by aperis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_pa(t_stack **stack_a, t_stack **stack_b)
+void	bft_pa(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*tmp;
 	t_stack	*tmp2;
@@ -26,11 +26,10 @@ void	ft_pa(t_stack **stack_a, t_stack **stack_b)
 		ft_stackadd_front(stack_b, tmp2);
 		*stack_a = tmp->next;
 		free(tmp);
-		write(1, "pa\n", 3);
 	}
 }
 
-void	ft_pb(t_stack **stack_a, t_stack **stack_b)
+void	bft_pb(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*tmp;
 	t_stack	*tmp2;
@@ -44,11 +43,10 @@ void	ft_pb(t_stack **stack_a, t_stack **stack_b)
 		ft_stackadd_front(stack_b, tmp2);
 		*stack_a = tmp->next;
 		free(tmp);
-		write(1, "pb\n", 3);
 	}
 }
 
-void	ft_sa(t_stack **stack_a)
+void	bft_sa(t_stack **stack_a)
 {
 	t_stack	*tmp_a;
 	int		tmp;
@@ -59,11 +57,10 @@ void	ft_sa(t_stack **stack_a)
 		tmp = tmp_a->value;
 		tmp_a->value = tmp_a->next->value;
 		tmp_a->next->value = tmp;
-		write(1, "sa\n", 3);
 	}
 }
 
-void	ft_sb(t_stack **stack_b)
+void	bft_sb(t_stack **stack_b)
 {
 	t_stack	*tmp_b;
 	int		tmp;
@@ -74,6 +71,5 @@ void	ft_sb(t_stack **stack_b)
 		tmp = tmp_b->value;
 		tmp_b->value = tmp_b->next->value;
 		tmp_b->next->value = tmp;
-		write(1, "sb\n", 3);
 	}
 }
